@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% block content %}
+<div class="max-w-6xl mx-auto py-5">
+  {% if messages %} {% for message in messages %}
+  <div
+    class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 my-3"
+    role="alert"
+  >
+    <p>{{message}}</p>
+  </div>
+  {% endfor %} {% endif %}
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+    <div class="w-full h-full">
+      <img src="{{ book.image.url }}" alt="" class="w-full" />
+    </div>
+    <div class="flex flex-col gap-5">
+      <h1 class="text-3xl">{{ book.title }}</h1>
+      <p class="text-2xl text-justify">
+        {{ book.description|truncatechars:300 }}
+      </p>
+      <p class="font-bold">Price: ${{ book.borrowing_price }}</p>
+      <a
+        href="{% url 'borrow_book' book.id %}"
+        class="py-3 px-6 bg-gray-800 text-gray-300 text-center"
+        >Borrow Book</a
+      >
+    </div>
+  </div>
+  <div class="py-5">
+    {% include "user_comment.html" %}
+  </div>
+</div>
+{% endblock content %}

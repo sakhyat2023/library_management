@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block content %}
+<div class="max-w-7xl mx-auto">
+  <h1 class="text-3xl py-5 font-bold">BookList</h1>
+  <div class="book_list flex items-start gap-5">
+    <div class="category-list flex flex-col gap-3 w-96 border py-2 px-4 rounded-md bg-gray-800 text-gray-300">
+      <h1 class="text-2xl font-bold">Categories</h1>
+      {% for category in categories %}
+      <a href="{% url 'book_list' category.slug %}" class="font-semibold">{{category.name}}</a>
+      {% endfor %}
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+      {% for book in books %}
+      <a href="{% url 'book_details' book.id %}" class="shadow-xl rounded-md">
+        <div class="flex flex-col gap-2">
+          <img src="{{book.image.url}}" alt="" class="w-full h-64" />
+          <div class="px-3 py-2">
+            <span class="font-semibold">{{book.title}}</span>
+          <p class="font-bold">Price: ${{book.borrowing_price}}</p>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

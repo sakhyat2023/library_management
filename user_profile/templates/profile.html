@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% block content %}
+<div class="max-w-7xl mx-auto">
+  <div class="text-center py-3">
+    <h1 class="text-2xl">Welcome to {{user.first_name}} {{user.last_name}}</h1>
+  </div>
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">ID</th>
+          <th scope="col" class="px-6 py-3">Date</th>
+          <th scope="col" class="px-6 py-3">Book Name</th>
+          <th scope="col" class="px-6 py-3">Borrowing Price</th>
+          <th scope="col" class="px-6 py-3">Balance After Borrowing Book</th>
+          <th scope="col" class="px-6 py-3">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for transaction in object_list %}
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+          {{transaction.id}}
+          </th>
+          <td class="px-6 py-4">{{ transaction.timestamps|date:"F d, Y h:i A" }}</td>
+          <td class="px-6 py-4"><a href="{% url 'book_details' transaction.book_id %}">{{transaction.book}}</a></td>
+          <td class="px-6 py-4">${{ transaction.amount|floatformat:2 }}</td>
+          <td class="px-6 py-4">${{ transaction.balance_after_purchase|floatformat:2 }}</td>
+          <td class="px-6 py-4"><a href="{% url 'return_book' transaction.id %}">Return Book</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+{% endblock content %}
