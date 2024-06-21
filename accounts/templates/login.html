@@ -7,9 +7,9 @@
       </h2>
     </div>
     {% if form.non_field_errors %}
-    <div class="alert alert-danger">
+    <div class="alert alert-danger py-5">
       {% for error in form.non_field_errors %}
-      <span>{{ error }}</span>
+      <p class="text-center">{{ error }}</span>
       {% endfor %}
     </div>
     {% endif %}
